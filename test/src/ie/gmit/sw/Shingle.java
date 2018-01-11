@@ -14,7 +14,28 @@ public class Shingle {
 	private int hashCode;
 	///Constructors & getters & setters
 	
-	public Shingle(int docID2, int hashCode2) {
-		// TODO Auto-generated constructor stub
+	public Shingle(int docID, int hashCode) {
+		super();
+		this.docID = docID;
+		this.hashCode = hashCode;
+	}
+
+	//getters & setters
+	
+	public int getDocID() {
+		return docID;
+	}
+
+	public void setDocID(int docID) {
+		this.docID = docID;
+	}
+	
+	public int getHashCode() {
+		// TODO Auto-generated method stub
+		return hashCode;
+	}
+	
+	public void setHashCode(int hashCode) {
+		this.hashCode = hashCode;
 	}
 }
