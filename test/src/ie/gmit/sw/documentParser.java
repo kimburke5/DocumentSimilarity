@@ -35,21 +35,26 @@ public class documentParser implements Runnable {
 
 	@Override
 	public void run() {
-		//Buffered Reader
 		
 		try {
+			
+				//Buffered Reader
 				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 				String line= null;
 				
 				//loop through all the lines in the file
 				while((line = br.readLine())!=null){
-					
+					//convert to upperacase
 					String uLine= line.toUpperCase();
+					//splits the lines into words
 					String [] words = uLine.split(" ");
+					//adds single words to the buffer
 					addWordsToBuffer(words);
+					//calls getNextShingle
 					Shingle s = getNextShingle();
 					
 					if(s== null) {
+						//ignores empty shingles
 						continue;		
 					}
 					
@@ -57,12 +62,20 @@ public class documentParser implements Runnable {
 				}//while
 				
 				queue.put(new Shingle(0,0));
+				//calles flush buffer method
 				flushBuffer();
+				//closes the BufferedReader
 				br.close();
 					
-				} catch (IOException | InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 		
 			}//run
@@ -76,7 +89,7 @@ public class documentParser implements Runnable {
 	}
 
 	private void flushBuffer() throws InterruptedException {
-		// TODO Auto-generated method stub
+		//flushes the buffer
 		
 		while(Buffer.size() > 0) {
 			Shingle s = getNextShingle();
@@ -92,7 +105,7 @@ public class documentParser implements Runnable {
 	}//flushBuffer
 
 	private Shingle getNextShingle() {
-		// TODO Auto-generated method stub
+		//gets next shingle
 		StringBuilder sb = new StringBuilder();
 		int counter = 0;
 		

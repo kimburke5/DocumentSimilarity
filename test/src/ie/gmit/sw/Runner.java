@@ -9,9 +9,10 @@ package ie.gmit.sw;
 public class Runner {
 
 	public static void main(String[] args) throws InterruptedException {
+		//outputs user menu from UI class
 		new UI().show();
-		System.out.print("hello");
-		System.out.print("\nPlease enter a textfile: ");
+		System.out.print("Document Comparison Complete");
+		
 
 	}
 

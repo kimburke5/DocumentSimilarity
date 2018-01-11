@@ -15,6 +15,7 @@ public class UI {
 	public void show() throws InterruptedException  {
 		
 		// TODO Auto-generated method stub
+		//menu print
 		System.out.println("*** Document Comparison Service ***");
 		
 		String file1;
@@ -28,6 +29,7 @@ public class UI {
 		System.out.print("\nEnter File Name / URL 2: ");
 		file2 = console.nextLine();
 		
+		//calls Launcher class
 		new Launcher(file1,file2, 100);
 		console.close();
 	}

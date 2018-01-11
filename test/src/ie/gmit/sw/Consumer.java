@@ -1,10 +1,12 @@
 package ie.gmit.sw;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 
@@ -22,19 +24,29 @@ public class Consumer implements Runnable{
 	private BlockingQueue <Shingle>queue;
 	private int [] minHash;
 	private int k;
-	private Map <Integer,List<Integer>> map;
-	private ExecutorService pool;
+	Map<Integer, List<Integer>> map = new ConcurrentHashMap<Integer, List<Integer>>();
+	//private ExecutorService pool;
 	
-	public Consumer(BlockingQueue<Shingle>q, int k, int poolSize) {
+	/*public Consumer(BlockingQueue<Shingle>q, int k, int poolSize) {
 		
 		this.queue = q;
 		this.k = k;
-		//pool = Executor.fixedSizeThreadPool(poolSize);
+		pool = Executor.newFixedThreadPool(poolSize);
 		init();
+	}*/
+	
+	public Consumer(BlockingQueue<Shingle> q, Map <Integer,List<Integer>> map, int k, int[] hash) {
+		super();
+		this.queue = q;
+		this.map = map;
+		this.minHash = hash;
+		this.k = k;
+		//pool = Executor.newFixedThreadPool(poolSize);
+		//init();
 	}
 	
 	
-	public void init() {
+	/*public void init() {
 		Random random = new Random();
 		minHash = new int [k];
 		
@@ -42,7 +54,7 @@ public class Consumer implements Runnable{
 			minHash[i] = random.nextInt();
 		}
 		
-	}
+	}*/
 
 	@Override
 	public void run() {
@@ -69,7 +81,7 @@ public class Consumer implements Runnable{
 					list = new ArrayList<Integer>(k);
 					
 					for(int j=0; j<k; j++){
-						list.set(j, Integer.MAX_VALUE);
+						list.add(j, Integer.MAX_VALUE);
 					}
 					
 					map.put(s.getDocID(), list);
@@ -100,12 +112,6 @@ public class Consumer implements Runnable{
 		
 	}
 
-	public Consumer(BlockingQueue<Shingle> q, Map <Integer,List<Integer>> map,int[] hash, int k) {
-		super();
-		this.queue = q;
-		this.map = map;
-		this.minHash = hash;
-		this.k = k;
-	}
+	
 
 }

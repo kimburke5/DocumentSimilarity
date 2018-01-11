@@ -9,7 +9,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- *Thread handling and jaccard calculations
+ * Thread handling and jaccard indexing
  * @author kimburke
  * @version 1.0
  *
@@ -47,39 +47,57 @@ public class Launcher {
 		Thread t1 = new Thread (new documentParser(file1, q1, 4, k),"T1");
 		Thread t2 = new Thread (new documentParser(file2, q2, 4, k),"T2");
 		
+		//start thread t1 and t2
 		t1.start();
 		t2.start();
 		
 		//Consumer Thread
-		Thread t3 = new Thread (new Consumer(q1, m1, minHash, k),"T3");
-		Thread t4 = new Thread (new Consumer(q2, m1, minHash, k),"T4");
+		Thread t3 = new Thread (new Consumer(q1, m1, k, minHash),"T3");
+		Thread t4 = new Thread (new Consumer(q2, m2, k, minHash),"T4");
+		
+		//start thread t3 and t4
+		t3.start();
+		t4.start();
 		
 		t1.join();
 		t2.join();
-
-		//join when fix is made
 		
-		//t3.join();
-		//t4.join();
+		t3.join();
+		t4.join();
 		
-		////result print when calculations are inserted
-		System.out.println("------------------------------------------------------");
-		System.out.println("Similarity: ...%");//jaccard result
-		System.out.println("------------------------------------------------------");
+		//initailizing result
+		float result = Jaccard(m1.get(0),m2.get(0));
+		
+		////result print 
+		System.out.println("---------------------------------------------");
+		System.out.println("Similarity: "+result+"%");//jaccard result
+		System.out.println("---------------------------------------------");
 		
 
 	}
 	
 	float Jaccard(List<Integer> A,List<Integer> B) {
-			
-			//Need to Calculate Jaccard algorithm in here
+		    
+		System.out.println("A ="+A);
+		System.out.println("B ="+B);
 		
-			//bit from notes....need to add the maths to calc
-			float result = 0;
+		    //A.get(0);
+			float result = 0.0f;
 			
 			List<Integer> intersection = new ArrayList<Integer>(A);
 			
 			intersection.retainAll(B);
+			
+			//calculations for Jaccard indexing
+			int AxB = intersection.size();
+			int AuB = A.size() + B.size() - AxB;
+		
+			System.out.println("Common (AxB): "+AxB);
+			System.out.println("Total  (AuB): "+AuB);
+			
+			// Calculates Jaccard percentage and assigns to result
+			result = ((float)AxB/AuB)*100.0f;
+			
 
 			return result;
 		}
