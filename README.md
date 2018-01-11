@@ -1,6 +1,8 @@
 # Document_Similarity
 Kimberly Burke
+
 G00269948
+
 https://github.com/kimburke55/Document_Similarity.git
 
 Contains a description of the application
