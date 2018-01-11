@@ -100,4 +100,12 @@ public class Consumer implements Runnable{
 		
 	}
 
+	public Consumer(BlockingQueue<Shingle> q, Map <Integer,List<Integer>> map,int[] hash, int k) {
+		super();
+		this.queue = q;
+		this.map = map;
+		this.minHash = hash;
+		this.k = k;
+	}
+
 }
