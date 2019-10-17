@@ -3,8 +3,6 @@ Kimberly Burke
 
 G00269948
 
-https://github.com/kimburke55/Document_Similarity.git
-
 Contains a description of the application
 
 A Java API for Measuring Document Similarity Efficient Detection of Duplication using Jaquard Similarity algorithm. 
